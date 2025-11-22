@@ -13,7 +13,7 @@ export const getUserProfile = async (req, res) => {
     res.status(200).json(user);
   } catch (error) {
     console.log("Error in getUserProfile: ", error.message);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -65,7 +65,7 @@ export const followUnfollowUser = async (req, res) => {
     }
   } catch (error) {
     console.log("Error in followUnfollowUser", error.message);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -76,6 +76,7 @@ export const getSuggestedUsers = async (req, res) => {
     const users = await User.aggregate([
       {
         $match: {
+          // ne = no equal
           _id: { $ne: userId },
         },
       },
@@ -89,7 +90,7 @@ export const getSuggestedUsers = async (req, res) => {
     res.status(200).json(suggestedUsers);
   } catch (error) {
     console.log("Error in getSuggestedUsers: ", error.message);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -156,7 +157,7 @@ export const updateUser = async (req, res) => {
     user.password = null;
     return res.status(200).json(user);
   } catch (error) {
-    console.log("Error in updateUser", error.message);
-    res.status(500).json({ error: message });
+    console.log("Error in updateUser Controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
